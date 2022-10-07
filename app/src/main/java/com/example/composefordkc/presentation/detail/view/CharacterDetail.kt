@@ -15,20 +15,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.composefordkc.Constants
 import com.example.composefordkc.presentation.model.CharacterUi
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 interface DetailViewModel {
     val state: StateFlow<CharacterUi>
 }
 
-class DetailViewModelImpl() : DetailViewModel {
-    val _state: MutableStateFlow<CharacterUi> = MutableStateFlow(CharacterUi.initState())
+class DetailViewModelImpl(private val _state: StateFlow<CharacterUi>) : DetailViewModel {
     override val state: StateFlow<CharacterUi>
-        get() = _state.asStateFlow()
+        get() = _state
 }
 
 @Composable

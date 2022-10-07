@@ -10,9 +10,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        showInitFragment(savedInstanceState)
+    }
 
-        supportFragmentManager.commit {
-            replace(R.id.fragmentContainer, CharactersFragment())
+    private fun showInitFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                replace(R.id.fragmentContainer, CharactersFragment())
+            }
         }
     }
 }

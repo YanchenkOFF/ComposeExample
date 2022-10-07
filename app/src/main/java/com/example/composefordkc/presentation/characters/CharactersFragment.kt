@@ -16,7 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.composefordkc.App
 import com.example.composefordkc.R
 import com.example.composefordkc.presentation.characters.view.CharacterItems
-import com.example.composefordkc.presentation.detail.DetailFragment
+import com.example.composefordkc.presentation.detail.CharacterDetailFragment
 import com.example.composefordkc.presentation.model.CharacterUi
 import kotlinx.coroutines.flow.collectLatest
 
@@ -55,11 +55,11 @@ class CharactersFragment : Fragment() {
 
     private fun routeToDetailFragment(item: CharacterUi) {
         val args = Bundle().apply {
-            putParcelable(DetailFragment.EXTRA_CHARACTER, item)
+            putParcelable(CharacterDetailFragment.EXTRA_CHARACTER, item)
         }
-        setFragmentResult(DetailFragment.EXTRA_DETAIL_KEY, args)
+        setFragmentResult(CharacterDetailFragment.EXTRA_DETAIL_KEY, args)
         requireActivity().supportFragmentManager.commit {
-            replace<DetailFragment>(R.id.fragmentContainer)
+            replace<CharacterDetailFragment>(R.id.fragmentContainer)
             setReorderingAllowed(true)
             addToBackStack(null)
         }

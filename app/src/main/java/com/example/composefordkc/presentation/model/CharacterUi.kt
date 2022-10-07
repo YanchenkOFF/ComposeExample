@@ -6,14 +6,18 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CharacterUi(
-    val image: String, val name: String, val gender: String
+    val image: String,
+    val name: String,
+    val gender: String,
+    val episode: List<String>
 ) : Parcelable {
     companion object {
-        fun initState(): CharacterUi =
+        val initState =
             CharacterUi(
                 image = Constants.EMPTY_STRING,
                 name = Constants.EMPTY_STRING,
-                gender = Constants.EMPTY_STRING
+                gender = Constants.EMPTY_STRING,
+                episode = emptyList()
             )
     }
 }

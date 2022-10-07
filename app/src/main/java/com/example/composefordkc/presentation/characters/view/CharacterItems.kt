@@ -22,7 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.composefordkc.data.MockData
+import com.example.composefordkc.presentation.MockData
 import com.example.composefordkc.presentation.model.CharacterUi
 import kotlinx.coroutines.flow.StateFlow
 

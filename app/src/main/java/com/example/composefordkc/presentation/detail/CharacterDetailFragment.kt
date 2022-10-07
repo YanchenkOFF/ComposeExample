@@ -5,17 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.example.composefordkc.App
 import com.example.composefordkc.R
+import com.example.composefordkc.presentation.detail.view.Detail
+import com.example.composefordkc.presentation.detail.view.EpisodeItems
 import com.example.composefordkc.presentation.model.CharacterUi
 
-class DetailFragment : Fragment() {
-    private val detailViewModel: DetailViewModel by viewModels {
-        DetailViewModelFactory(App.rickAndMortyRepository)
+class CharacterDetailFragment : Fragment() {
+    private val viewModel: CharacterDetailViewModel by viewModels {
+        CharacterDetailViewModelFactory(App.rickAndMortyRepository)
     }
 
     companion object {
@@ -35,7 +38,10 @@ class DetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_detail, container, false).apply {
             findViewById<ComposeView>(R.id.detailComposeView).setContent {
                 Box() {
-
+                    Column() {
+                        Detail(viewModel = viewModel.detailViewModel)
+                        EpisodeItems(viewModel = viewModel.episodeItemsViewModel)
+                    }
                 }
             }
         }
@@ -45,7 +51,7 @@ class DetailFragment : Fragment() {
         setFragmentResultListener(EXTRA_DETAIL_KEY) { _, bundle ->
             val character = bundle.getParcelable(EXTRA_CHARACTER) as? CharacterUi
             character?.let {
-                detailViewModel.getCharacterDetail(character)
+                viewModel.getCharacterDetail(character)
             }
         }
     }
