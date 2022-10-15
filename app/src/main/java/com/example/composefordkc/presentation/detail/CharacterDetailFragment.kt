@@ -11,9 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.example.composefordkc.App
-import com.example.composefordkc.R
 import com.example.composefordkc.presentation.detail.view.Detail
-import com.example.composefordkc.presentation.detail.view.EpisodeItems
+import com.example.composefordkc.presentation.detail.view.BoxedLazyRow
 import com.example.composefordkc.presentation.model.CharacterUi
 
 class CharacterDetailFragment : Fragment() {
@@ -34,13 +33,14 @@ class CharacterDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false).apply {
-            findViewById<ComposeView>(R.id.detailComposeView).setContent {
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                val uiState = viewModel.uiState
                 Box() {
                     Column() {
-                        Detail(viewModel = viewModel.detailViewModel)
-                        EpisodeItems(viewModel = viewModel.episodeItemsViewModel)
+                        Detail(detailState = uiState.characterDetail)
+                        BoxedLazyRow(boxedLazyRowState = uiState.boxedEpisodes)
                     }
                 }
             }
