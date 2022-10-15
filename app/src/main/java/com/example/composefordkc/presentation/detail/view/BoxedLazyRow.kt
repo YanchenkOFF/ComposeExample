@@ -10,38 +10,34 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.composefordkc.presentation.MockData
-import com.example.composefordkc.presentation.model.EpisodeUI
-import kotlinx.coroutines.flow.StateFlow
 
-interface EpisodeItemsViewModel {
-    val state: StateFlow<List<EpisodeUI>>
+data class BoxedLazyRowState(
+    val boxList: List<BoxItem> = emptyList()
+) {
+    data class BoxItem(
+        val firstRow: String,
+        val secondRow: String,
+        val thirdRow: String
+    )
 }
 
-class EpisodeItemsViewModelImpl(private val _state: StateFlow<List<EpisodeUI>>) : EpisodeItemsViewModel {
-    override val state: StateFlow<List<EpisodeUI>>
-        get() = _state
-}
 
 @Composable
-fun EpisodeItems(viewModel: EpisodeItemsViewModel) {
-    val state = viewModel.state.collectAsState()
+fun BoxedLazyRow(boxedLazyRowState: BoxedLazyRowState) {
     LazyRow(){
-        items(items = state.value){
-            EpisodeItem(state = it)
+        items(items = boxedLazyRowState.boxList) {
+            BoxItem(boxItem = it)
         }
     }
 }
 
 @Composable
-fun EpisodeItem(state: EpisodeUI) {
+fun BoxItem(boxItem: BoxedLazyRowState.BoxItem) {
     Box(
         modifier = Modifier
             .padding(all = 8.dp)
@@ -53,26 +49,26 @@ fun EpisodeItem(state: EpisodeUI) {
             modifier = Modifier.align(Alignment.Center)
         ) {
             Text(
-                text = state.episode,
+                text = boxItem.firstRow,
                 modifier = Modifier
                     .padding(bottom = 8.dp),
             )
             Text(
-                text = state.created,
+                text = boxItem.secondRow,
                 modifier = Modifier
                     .padding(bottom = 8.dp),
             )
             Text(
-                text = state.airDate,
+                text = boxItem.thirdRow,
                 modifier = Modifier
                     .padding(bottom = 8.dp),
             )
         }
     }
 }
-
-@Composable
-@Preview
-fun PreviewEpisodeItem() {
-    EpisodeItem(state = MockData.episode)
-}
+//
+//@Composable
+//@Preview
+//fun PreviewEpisodeItem() {
+//    BoxItem(state = MockData.episode)
+//}
